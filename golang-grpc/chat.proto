@@ -1,10 +1,23 @@
 syntax = "proto3";
 package chat;
 
+import "google/api/annotations.proto";
+
 message Message {
     string body=1;
 }
 service ChatService {
-    rpc SayHello(Message) returns (Message) {}
-    rpc SayBye(Message) returns (Message) {}
+    rpc SayHello(Message) returns (Message) {
+    option (google.api.http) = {
+            post: "/v1/sayhello"
+            body: "*"
+        };  
+        
+    }
+    rpc SayBye(Message) returns (Message) {
+        option (google.api.http) = {
+            post: "/v1/saybye"
+            body: "*"
+        };  
+    }
 }
